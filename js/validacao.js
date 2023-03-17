@@ -10,7 +10,7 @@ export function valida(input) {
     input.parentElement.querySelector(".input-mensagem-erro").innerHTML = "";
   } else {
     input.parentElement.classList.add("input-container--invalido");
-    input.parentElement.querySelector(".input-mensagem-erro").innerHTML = mostraMensagemDeErro(tipoDeInput.input);
+    input.parentElement.querySelector(".input-mensagem-erro").innerHTML = mostraMensagemDeErro(tipoDeInput, input);
   }
 }
 
