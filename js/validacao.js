@@ -41,8 +41,12 @@ const mensagensDeErro = {
   },
   cpf: {
     valueMissing: "O campo de CPF não pode estar vazio.",
-    patternMismatch: "O CEP digitado não é válido.",
     customError: "O CPF digitado, não é válido.",
+  },
+  cep: {
+    valueMissing: "O campo de CEP não pode estar vazio.",
+    patternMismatch: "O CEP digitado não é válido.",
+    customError: "Não foi possível buscar o CEP.",
   },
   logradouro: {
     valueMissing: "O campo de logradouro não pode estar vazio.",
@@ -171,13 +175,16 @@ function recuperarCEP(input) {
   };
 
   if (!input.validity.patternMismatch && !input.validity.valueMissing) {
-    fetch9(url, options)
+    fetch(url, options)
       .then((response) => response.json())
       .then((data) => {
         if (data.erro) {
           input.setCustomValidity("Não foi possível buscar o CEP.");
           return;
         }
+        input.setCustomValidity("");
+        preencheCamposComCEP(data);
+        return;
       });
   }
 }
